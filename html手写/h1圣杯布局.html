@@ -1,0 +1,67 @@
+
+
+
+<!-- 圣杯布局和双飞翼布局的区别就是 
+  结构不同： 
+        圣杯没有多余的结构
+        双飞翼center还包了一层
+  隔开方式不同：
+        圣杯 通过设置container的padding实现
+        双飞翼 通过设置center的margin来实现
+  定位方式不同
+        圣杯 通过position：relative来实现
+        双飞翼 通过margin来实现  都是margin-left实现
+
+
+
+-->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .cup {
+      /* padding: 0 200px 0; */
+      padding-left: 200px;
+      padding-right: 200px;
+      overflow:hidden ;
+      /* box-sizing: border-box; */
+    }
+    .center {
+      width: 100%;
+      background-color: pink;
+    }
+    .left {
+      position: relative;
+      left: -200px;
+      margin-left: -100%;
+      width: 200px;
+      background-color: orange;
+    }
+    .right {
+      margin-right: -200px;
+      width: 200px;
+      background-color: skyblue;
+    }
+    .fl {
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="cup">
+    <div class="center fl">center</div>
+    <div class="left fl">left</div>
+    <div class="right fl">right</div>
+    <div class="lasr fl">hhh</div>
+  </div>
+</body>
+</html>

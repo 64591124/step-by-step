@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      width: 1000px;
+      margin: 0 auto;
+      background-color: pink;
+    }
+    .container > img {
+      display: block;
+      width: 400px;
+      height: 400px;
+      margin-bottom: 50px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+      <img src="./img/loading.jpg" data-src="./img/pic.png" />
+    </div>
+    <script>
+      // function lazyLoad() {
+      //   var scrollTop =
+      //     document.body.scrollTop || document.documentElement.scrollTop;
+      //   var winHeight = window.innerHeight;
+      //   for (var i = 0; i < imgs.length; i++) {
+      //     if (imgs[i].offsetTop < scrollTop + winHeight) {
+      //       imgs[i].src = imgs[i].getAttribute("data-src");
+      //     }
+      //   }
+      // }
+      // window.onscroll = lazyLoad();
+
+      function lazyLoad() {
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        var winHeight = window.innerHeight
+        for(var i = 0; i < imgs.length; i++) {
+          if(imgs[i].offetTop < scrollTop + winHeight) {
+            imgs[i].src = imgs[i].getAttribute('data-src')
+          }
+        }
+      }
+      window.onscroll = debounce(lazyLoad, 200)
+      function debounce(fn, delay) {
+        let timer = null
+        return function() {
+          let args = [...arguments]
+          let context = this
+          if(timer) {
+            clearTimeout(timer)
+          }
+          timer = setTimeout(() => {
+            fn.apply(context, args)
+            timer = null
+          }, delay)
+        }
+      }
+    </script>
+  </body>
+</html>
