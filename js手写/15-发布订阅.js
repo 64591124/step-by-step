@@ -94,19 +94,42 @@ var input = document.querySelector("#ipt");
 input.oninput = function (e) {
   obj.value = e.target.value;
 };
-let obj = {
-  value: "",
-};
-Object.defineProperty(obj, "value", {
-  get() {
-    console.log("我被读了");
-  },
-  set(newVal) {
-    s1.on("value1", function () {
-      console.log("我的值是" + newVal);
-      console.log("我被改了");
-    });
-    input.value = newVal;
-    return newVal;
-  },
-});
+
+
+class EventEmitter {
+  constructor() {
+    this.cache = {}
+  }
+  on(name, fn) {
+    if (!this.cache[name]) {
+      this.cache[name] = []
+    }
+    this.cache[name].push(fn)
+  }
+
+  emit(name, ...args) {
+    if (!this.cache[name]) {
+      return
+    }
+    let fns = this.cache[name].slice()
+    fns.forEach(fn => {
+      fn(...args)
+    })
+    this.cache[name] = fns
+  }
+
+  off(name, fn) {
+    if (!this.cache[name]) return
+    let fns = this.cache[name].slice()
+    fns = fns.filter(item => item !== fn && item.initFn !== fn)
+  }
+
+  once(name, fn) {
+    const once = (...arg) => {
+      fn(...arg)
+      this.off(name, fn)
+    }
+    once.initFn = fn
+    this.on(name, once)
+  }
+}
