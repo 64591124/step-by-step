@@ -53,28 +53,26 @@ function tree2arr(obj) {
   }
 
 }
-
 console.log(tree2arr(raw));
-
-
 
 function demo(obj) {
   const map = parse(obj)
   let res = []
-  const keys = map.keys()
-  for (let item of keys) {
-    let parent = map.get(item)
-    const { children, ...other} = item
+  let keys = map.keys()
+  for (let key of keys) {
+    let parent  = map.get(key)
+    let { children, ...other} = key
     if (parent) {
-      res.push({ ...other, parentId: parent.value})
+      res.push({'parentId': parent.value, ...other})
     } else {
       res.push(other)
     }
   }
   return res
-
   function parse(obj, pre = null, map = new Map()) {
-    if (!obj) return 
+    if (!obj) {
+      return
+    }
     map.set(obj, pre)
     const { children } = obj
     children?.forEach(item => {
@@ -83,4 +81,7 @@ function demo(obj) {
     return map
   }
 }
+
+
+
 console.log(demo(raw));

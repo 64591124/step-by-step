@@ -103,7 +103,6 @@ function arrToTree(arr) {
         parentNode.children = []
       }
       parentNode.children.push(item)
-      console.log('a',parentNode.children);
     } else {
       res.push(item)
     }
@@ -114,7 +113,7 @@ console.log('1117', JSON.stringify(demo(arr)));
 function demo(arr) {
   let res = []
   let map = new Map()
-  arr.forEach((item) => {
+  arr.forEach(item => {
     map.set(item.id, item)
   })
 
@@ -122,7 +121,7 @@ function demo(arr) {
     let parentNode = map.get(item.pid) 
     if (parentNode) {
       console.log(parentNode.children);
-      parentNode.children = parentNode.children ?parentNode.children: []
+      parentNode.children = parentNode.children ?? []
       parentNode.children.push(item)
     } else {
       res.push(item)
@@ -130,4 +129,3 @@ function demo(arr) {
   })
   return res
 }
-

@@ -62,44 +62,36 @@ const taskRunner = async () => {
   taskRunner()
 }
 // taskRunner()
-
-
-
-
-const ppp = function (timer, color) {
-  let now = 0, last = 0
-  let data = new Date()
+function task5(timer, light) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      now =  data.getSeconds()
-      if (color === 'red') {
+      if (light === 'red') {
         console.log('red');
-      } else if (color === 'yellow') {
+      } else if (light === 'yellow') {
         console.log('yellow');
-      } else {
-        console.log('blue');
+      } else if (light === 'green') {
+        console.log('green');
       }
       resolve()
     }, timer)
-    last = now 
   })
 }
-
-let data = new Date()
-console.log(new Date(data.getSeconds()))
-
-const tt = () => {
-  ppp(3000, 'red')
-    .then(() => {
-    ppp(2000, 'yellow')
+const pp = () => {
+  task5(3000, 'red').then(() => {
+    task5(2000, 'green')
   }).then(() => {
-    ppp(1000, 'blue')
-  }).then(tt)
+    task5(1000, 'yellow')
+  }).then(pp)
 }
 
-tt()
+
+async function zzz() {
+  await task5(3000, 'red')
+  await task5(3000, 'yellow')
+  await task5(1000, 'green')
+  zzz()
+}
 
 
 
-
-
+zzz()
