@@ -1,3 +1,37 @@
+
+
+function compose(...args) {
+  return function (...arg) {
+    let res
+    let len = args.length
+    for (let i = len - 1; i >= 0; i--) {
+      if (i === len - 1) {
+        res = args[i](...arg)
+      } else {
+        res = args[i](res)
+      }
+    }
+    return res
+  }
+}
+
+function a(x) {
+  return x+1
+}
+function b(x) {
+  return x+1
+}
+function c(x) {
+  return x+1
+}
+function d (x) {
+  return x+1
+}
+const func = compose(a, b, c, d)
+
+console.log(func(3));
+
+
 // a(b(c(d('xxxx'))))简化成compose(a, b, c, d)
 // const func = compose(a, b, c, d)
 // func('xxx')

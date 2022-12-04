@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">点我</button>
+  <script>
+    let btn = document.getElementById('btn')
+    function throttle(fn, delay = 2000) {
+    let last = new Date().getTime()
+    let timer = null
+    return function (...args) {
+      let now = new Date().getTime()
+      let temp = now - last
+      // console.log(temp, 'temp');
+      if (temp >= delay) {
+        // console.log(111111);
+        fn.apply(this, args)
+        if (timer) {
+          clearTimeout(timer)
+          timer = null
+        }
+        last = now
+      } else if (!timer) {
+        timer = setTimeout(() => {
+          fn.apply(this, args)
+          timer = null
+          console.log('timeout');
+        }, delay-temp)
+      }
+    }
+  }
+
+  function fn() {
+    console.log(new Date().getTime(), 111)
+  }
+
+  btn.addEventListener('click', throttle(fn))
+  </script>
+</body>
+</html>

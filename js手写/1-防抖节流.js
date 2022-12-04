@@ -12,6 +12,7 @@ function debounce(fn, delay = 200) {
   }
 }
 
+
 let d  = 999
 debounce(function () { })(222)
 
@@ -39,5 +40,31 @@ function throtten(fn, delay = 200) {
       fn.apply(null, args)
       timer = null
     }, delay)
+  }
+}
+
+
+
+// 节流
+
+/// 保留最后一次触发
+function throtten(fn, delay = 200) {
+  let last = 0
+  let timer
+  return function (...args) {
+    let now = new Date().getTime()
+    let temp = now - last
+    if (temp >= delay) {
+      fn.apply(this, args)
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
+      }
+    } else if(!timer){
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+        timer = null
+      }, delay - temp)
+    }
   }
 }
