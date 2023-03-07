@@ -43,6 +43,38 @@ console.log(deepClone(m));
 m.b.push('aaa')
 console.log(m);
 
+function deepClone(obj) {
+  let res
+  let type = typeof obj
+  if (type == 'object' && type !== null) {
+    if (obj instanceof Date) {
+      res = new Date(obj)
+    } else if (obj instanceof RegExp) {
+      res = new RegExp(obj)
+    } else {
+      res = Array.isArray(obj) ? [] : {}
+      for (let key in obj) {
+        let val = obj[key]
+        if (obj.hasOwnProperty(key)) {
+          if (typeof val === 'object') {
+            res[key] = deepClone(val)
+          } else {
+            res[key] = val
+          }
+        }
+      }
+    }
+    
+  } else {
+    return obj
+  }
+  return res
+}
+
+
+
+
+
 
 function deepCopy(obj) {
   // 如果不是对象则退出（可以停止递归

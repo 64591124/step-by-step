@@ -1,3 +1,11 @@
+/**
+ *  解决办法
+ *    git config --global --unset https.proxy
+ */
+
+
+
+
 const images = ["./src/imss.jpg", "./src/imss.jpg", "./src/imss.jpg"];
 const loader = (url) => {
   return new Promise((resolve, reject) => {

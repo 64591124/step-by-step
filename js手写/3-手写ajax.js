@@ -69,6 +69,20 @@ function getJson(url) {
   xhr.send(null)
 }
 
+function get() {
+  let xhr = new XMLHttpRequest()
+  let res
+  xhr.open(url)
+  xhr.onreadystatechange = function () {
+    if (this.readyState !== 4) return
+    if (this.status >= 200 && this.status < 300) {
+      res = this.response
+    } else {
+      console.error(this.statusText)
+    }
+  }
+
+}
 
 
 function getp(url) {

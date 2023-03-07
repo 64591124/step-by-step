@@ -23,7 +23,22 @@ function formatNum2(number) {
   return arr.join('') + str
 }
 
+function add(n) {
+  let str = n + ''
+  let ret = ''
+  while (str.length > 3) {
+    let res = str.slice(-3)
+    if (res.length === 3) {
+      ret = ',' + res + ret
+    }
+    str = str.slice(0, -3)
+  }
+  return str + ret
 
+}
+
+
+console.log(add(124160789));
 
 var name = 'Tom'
 var obj = {

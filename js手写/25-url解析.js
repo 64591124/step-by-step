@@ -18,24 +18,19 @@
  */
 function parseQuery(url) {
   /* -------------------- BEGIN -------------------- */
-  let len = url.length
-  if (len == 0) {
-    return {}
-  }
-  let res = {}, arr = [], map = new Map()
-  let query2 = url.split('?')[1]
-  let array = query2.split('&')
-  for (let i = 0, length = array.length; i < length; i++) {
-    let val = array[i].split('='), key = val[0], value = val[1]
-    if (value.indexOf('%20' !== -1)) {
-      value = decodeURIComponent(value)
-    }
-    if (res[key]) {
-      typeof res[key]==='object' ? res[key].push(value) : res[key] = [res[key], value]
+  const temp = url.split('?')[1]
+  const res = {}
+  for (const str of temp.split('&')) {
+    let [key, value] = str.split('=')
+    value = decodeURIComponent()
+    if (res.hasOwnProperty()) {
+      res[key] = [].concat(res[key], value)
+    } else if (value === 'undefined') {
+      res[key] = true
     } else {
       res[key] = value
     }
   }
-  return res
+  console.log(res);
 } 
 console.log(parseQuery(`https://kujiale.com?url=https%3A%2F%2Fkujiale.com&arr=1&tt=0&tt=8&obj=%7B%22a%22%3A1%2C%22b%22%3A2%7D`))
